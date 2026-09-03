@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "EZ Search New Tab Extension",
   "version": "1.0",
-  "description": "Press Ctrl+Shift+F to open the EZ Search page in a new tab.",
+  "description": "EZ Search is a lightweight Chrome extension for managing your bookmarks quickly and efficiently. Search, tag, and open your links without ever leaving your workflow.",
   "permissions": [
     "tabs",
     "windows"
