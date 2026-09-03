@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "EZ Search New Tab Extension",
+  "version": "1.0",
+  "description": "Press Ctrl+Shift+F to open the EZ Search page in a new tab.",
+  "permissions": [
+    "tabs",
+    "windows"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "open-ez-search": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "Command+Shift+F"
+      },
+      "description": "Open EZ Search in a new tab."
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["ezSearch.html"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "16": "favicon-cropped.png",
+    "48": "favicon-cropped.png",
+    "128": "favicon-cropped.png"
+  }
+}

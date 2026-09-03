@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" style="visibility: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EZ Search</title>
+    <link rel="icon" href="favicon-cropped.ico" type="image/x-icon">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"-->
+    <script src="tailwinds_3_4_16.js"></script>
+    <link rel="stylesheet" href="all.min.css">
+    <link rel="stylesheet" href="ezSearch.css">
+    <script src="ezSearch_darkModeFix.js"></script>
+
+</head>
+<body class="p-4 sm:p-6 md:p-8 flex flex-col items-center min-h-screen">
+    <div class="max-w-4xl w-full bg-white shadow-lg rounded-xl p-6 sm:p-8 md:p-10 mb-8 main-container relative border">
+		<header class="flex justify-between items-center mb-6">
+			<h1 class="text-3xl sm:text-4xl font-extrabold text-center text-cyberpunk-pink mb-8" id="mainTitle">EZ Search</h1>
+			<div class="flex items-center space-x-4">
+				<button id="exportLinksBtn" class="p-2 rounded-full transition-button" title="Export Links">
+					<i class="fas fa-download"></i>  <b>Export</b>
+				</button>
+				<button id="importLinksBtn" class="p-2 rounded-full transition-button" title="Import Links">
+					<i class="fas fa-upload"></i>  <b>Import</b>
+				</button>
+				<button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-button focus:outline-none" title="Toggle Dark Mode">
+					<i class="fas fa-moon text-gray-700 dark:text-yellow-400 text-lg"></i>
+				</button>
+				<input type="file" id="importFileInput" class="hidden" accept=".json,.html">
+			</div>
+		</header>
+
+		<div class="mb-6">
+			<input type="text" id="searchLinks" placeholder="Search by title, URL, or tag..."
+				   class="w-full p-3 pl-10 rounded-lg border"  autocomplete="off" spellcheck="false" autofocus>
+		</div>
+
+		<div class="mb-8 p-6 bg-white rounded-lg shadow-lg card-section border">
+			<h2 class="text-2xl font-bold text-gray-800 mb-6"></h2>
+			<div id="linkList" class="space-y-4 mb-6"></div>
+			<div id="noLinksMessage" class="hidden text-center text-gray-500 dark:text-gray-400 py-8">
+				<p class="text-lg mb-2">No links added yet!</p>
+				<p>Use the "Add New Link" section below to get started.</p>
+			</div>
+		</div>
+
+		<div id="noSearchResultsMessage" class="hidden text-center text-gray-500 dark:text-gray-400 py-8">
+			<p class="text-lg mb-2">No links match your search.</p>
+			<p>Try a different keyword or add new links.</p>
+		</div>
+
+		<span id="createOrEditLink"></span>
+
+		<div id="customModal" class="modalContainer fixed inset-0 bg-opacity-60 bg-gray-400 flex items-center justify-center z-50 hidden">
+			<div class="bg-white rounded-lg shadow-xl p-6 w-11/12 max-w-sm">
+				<h3 id="modalTitle" class="text-xl font-bold mb-4"></h3>
+				<p id="modalMessage" class="mb-6"></p>
+				<div class="flex justify-end space-x-3">
+					<button id="modalCancelBtn" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition duration-200 ease-in-out dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500">Cancel</button>
+					<button id="modalConfirmBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 ease-in-out">Confirm</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="importTypeModal" class="modalContainer fixed inset-0 bg-opacity-60 bg-gray-400 flex items-center justify-center z-50 hidden">
+			<div class="bg-white rounded-lg shadow-xl p-6 w-11/12 max-w-sm">
+				<h3 class="text-xl font-bold mb-4">Import Bookmarks</h3>
+				<p class="mb-6">Choose the format of the file you want to import:</p>
+				<div class="flex flex-col space-y-3">
+					<button id="importTypeEZSearchBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 ease-in-out">
+						EZ Search JSON File
+					</button>
+					<button id="importTypeChromeBtn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 ease-in-out">
+						Google Chrome HTML Bookmarks
+					</button>
+					<button id="importTypeCancelBtn" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition duration-200 ease-in-out">
+						Cancel
+					</button>
+				</div>
+			</div>
+		</div>
+	
+		<!-- Info Modal Structure -->
+		<div id="infoModal" class="modalContainer fixed inset-0 bg-opacity-60 bg-gray-400 flex items-center justify-center z-50 hidden">
+			<div id="infoCard" class="flex flex-col bg-white rounded-lg shadow-xl p-6 max-h-[95vh] w-3/4 max-w-[915px] relative">
+				<button id="infoModalCloseBtn" class="absolute top-3 right-3 text-4xl">
+					&times;
+				</button>
+				<h3 class="text-2xl font-bold mb-4 centeredText">Welcome to EZ Search!</h3>
+				<div class="flex-grow space-y-4 text-sm overflow-y-auto">
+					<h4 style="text-align: center"><u>Important</u></h4>
+					<p class="centeredText">
+						<strong class="adaptiveRedText">It is crucial to regularly export your data!</strong>
+					</p>
+					<p class="centeredText">
+						All your EZ Search bookmark data is stored directly in your browser's
+						<i>Local Storage</i>.
+					<br/>
+						This means if you clear your browser's cache, cookies, or site data,
+							your bookmarks will be <b class="adaptiveRedText">permanently</b> deleted.
+					</p>
+					<hr/>
+					<p class="centeredText">
+						This is a standalone web application designed to help you easily manage your bookmarks.
+					</p>
+					<h4 class="font-semibold text-base">How to Export/Import:</h4>
+					<ul class="list-none list-inside ml-4 space-y-2">
+						<li>
+							<strong>Export:</strong> Click the <i class="fas fa-download"></i> <b>Export</b> button at the top.
+							<ul class="list-disc list-inside ml-4 mt-1 space-y-1">
+								<li>This will download a <code>.json</code> file containing all your bookmarks.</li>
+								<li>Keep this file safe as a backup.</li>
+							</ul>
+						</li>
+						<li>
+							<strong>Import:</strong> Click the <i class="fas fa-upload"></i> <b>Import</b> button at the top.
+							<ul class="list-disc list-inside ml-4 mt-1 space-y-1">
+								<li>You can choose to import both:</li>
+								<ul class="list-unfilled-circle list-inside ml-4 mt-1 space-y-1">
+									<li><strong>EZ Search JSON Files</strong> - <i>Exported from this app.</i></li>
+									<li><strong>Google Chrome HTML Bookmarks</strong> - <i>Exported directly from Chrome's Bookmark Manager.</i></li>
+								</ul>
+								<li>(Duplicate URLs will be skipped during import.)</li>
+							</ul>
+						</li>
+					</ul>
+					<h4 class="font-semibold text-base">Other Features:</h4>
+					<ul>
+						<li>
+							<strong>Keyboard Shortcuts:</strong>
+							<ul class="list-disc list-inside ml-4 mt-1 space-y-1">
+								<li><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> — Launch EZ Search</li>
+								<li><kbd>Esc</kbd> — Close pop-ups, clear search bar, return focus from link to search bar</li>
+								<li><kbd>↑</kbd> / <kbd>↓</kbd> — Navigate between visible links</li>
+								<li><kbd>Enter</kbd> — Open focused link (or first result if search bar is active) in current tab</li>
+								<li><kbd>Ctrl</kbd> + <kbd>Enter</kbd> — Open focused link (or first result if search bar is active) in new background tab</li>
+								<li><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd> — Open focused link (or first result if search bar is active) in new tab</li>
+							</ul>
+						</li>
+					</ul>
+					<h4 class="font-semibold text-base">Other Features:</h4>
+					<ul class="list-none list-inside ml-4 space-y-2">
+						<li>
+							<strong>Add New Link:</strong> Use the "Add New Link" section to quickly add new bookmarks with a title, URL, and optional tags.
+							<ul class="list-disc list-inside ml-4 mt-1 space-y-1">
+								<li>Advanced options allow for custom favicon URLs or Base64 encoded favicons.</li>
+							</ul>
+						</li>
+						<li>
+							<strong>Search:</strong> Use the search bar to filter your bookmarks by title, URL, or tags.
+							<ul class="list-disc list-inside ml-4 mt-1 space-y-1">
+								<li>You can type multiple keywords, and the search will match links containing all of them.</li>
+							</ul>
+						</li>
+						<li>
+							<strong>Tags:</strong> Assign tags to your links for better organization.
+							<ul class="list-disc list-inside ml-4 mt-1 space-y-1">
+								<li>Click on any tag pill to quickly add/remove it in the search bar, helping you filter by tags.</li>
+							</ul>
+						</li>
+						<li>
+							<strong>Edit/Delete:</strong> Each link card has Edit <i class="fas fa-edit"></i> and Delete <i class="fas fa-trash-alt text-red-500"></i> buttons for easy management.
+						</li>
+						<li>
+							<strong>Drag & Drop:</strong> Reorder your links by dragging and dropping them into your preferred order.
+						</li>
+						<li>
+							<strong>Dark Mode:</strong> Toggle between light and dark themes using the moon/sun icon ( <i class="fas fa-moon"></i> / <i class="fas fa-sun"></i> ) at the top.
+						</li>
+					</ul>
+				</div>
+				<div id="infoModalFooter" class="mt-6 centeredText">
+					<div class="items-center">
+						<input type="checkbox" id="doNotShowAgain" class="mr-2 rounded">
+						<label for="doNotShowAgain">Stop showing me this.<br/>(You can click the question mark in the bottom-right to view this information again.)</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Add/Edit Link Modal Structure -->
+		<div id="addEditLinkModal" class="modalContainer fixed inset-0 bg-opacity-60 bg-gray-400 flex items-center justify-center z-50 hidden">
+			<div class="bg-white rounded-lg shadow-xl p-6 w-11/12 max-w-lg dark:bg-gray-800 dark:text-gray-200 relative">
+				<button id="addEditLinkModalCloseBtn" class="absolute top-3 right-3 text-4xl text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+					&times;
+				</button>
+				<h3 id="addEditLinkModalTitle" class="text-2xl font-bold mb-4 text-center">Add New Link</h3>
+				<form id="linkFormModal" class="items-center mb-6 space-y-4 p-2">
+					<div>
+						<label for="linkTitleModal" class="block text-sm font-medium">Title</label>
+						<input type="text" id="linkTitleModal" placeholder="My Awesome Link" required
+							   class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
+					</div>
+					<div>
+						<label for="linkUrlModal" class="block text-sm font-medium">URL</label>
+						<input type="text" id="linkUrlModal" placeholder="https://example.com" required
+							   class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
+					</div>
+					<div>
+						<label for="linkTagsModal" class="block text-sm font-medium">Tags (comma-separated)</label>
+						<input type="text" id="linkTagsModal" placeholder="productivity, dev, learning"
+							   class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
+					</div>
+					<div id="advancedOptionsContainer" class="rounded-lg modalContainer">
+						<div id="advancedOptionsHeaderModal" class="flex items-center cursor-pointer py-2">
+							<i id="advancedOptionsToggleIconModal" class="fas fa-chevron-right text-gray-500 dark:text-gray-300 collapse-icon"></i>
+							<h3 class="text-md font-semibold pl-3">Advanced Options</h3>
+						</div>
+						<div id="advancedOptionsContentModal" class="collapsible-content pt-0 shadow-none">
+							<div class="p-3">
+								<label for="linkCustomFaviconUrlModal" class="block text-md font-medium">Custom Favicon URL (optional)</label>
+								<input type="url" id="linkCustomFaviconUrlModal" placeholder="https://example.com/favicon.ico"
+									   class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-md dark:bg-gray-600 dark:border-gray-500 dark:text-gray-200">
+							</div>
+							<div class="p-3">
+								<label for="linkBase64FaviconModal" class="block text-md font-medium">Base64 Encoded Favicon (optional)</label>
+								<input type="url" id="linkBase64FaviconModal" placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACcklEQVQ4jYVTPUxTYRQ993vfa19bWgqKJbQaBzChMQZTk9LFMDiICYkDZXIxahP/Bn8WIiEvbCbCYjQhbm5SBwcV4gITYvwNGIMpDkgJCqn89P+9973PoWgQaz3jyb0n5957LlADuWg0kItGA7VqWDVSbvPMo91ivrp+ABgDlGq19A8BQiykFbzh1LonAMn3tu1PjpQAkv91ICNQCZBZX/sleJuCq/s6glPB2EWAZCIxqtZ0IHVw0mFlero6ma/lxaKr1T3XeAzz3sP5Bb7nxKP++tdduuRTOll/CPxqBIDN89FOyxVMpl3h0Af1qPioteOr46CyTo6lTcPuezXgmAEA6JJDJ+u3AxmHo9jZeiVvNg2lnWHPW4qJeRFRvlgHkLHdwmSaYkrkbGkPviuze9DJAADKPUMz5w3XYWinbeFumxfN8r0ZsedKx5XFYofM5AMoGE4S4AJEjDlAtomUFPYTC2yYk+Im4SS/6XOoObcH33Mq0lkby1tFbJp5GIoJSc7KaaQkSAIkVEbMbxsg7jlZWAEKiVQq6ixa65elXxvSHCUPM1eFLK4p4H4wxSkgVcW2ZQ5lezD7jd1fuEtlAOAAIMegUNt4GcDI80/d043efLLFXAttlZaFYdQDVK8ww1wqFtS+2QFWWWJcKkiSYABAfRAAMDnZxU+Fx2eUstHrdW1sOX1pWHUrkO6VLOOZ3tkBmoEuOQAgSaJaCJEYjagAcGH6zM2elzfkkacPZPvDx9cAAKNvagdpR5Yplo5rhc8NqY2iXywqoUPovmqA/o5ydcQrj9M4cfZOw8S52zu53eBVBZKVnfyAOQzannWb242fNdgB9XxtyyMAAAAASUVORK5CYII="
+									   class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-md dark:bg-gray-600 dark:border-gray-500 dark:text-gray-200">
+							</div>
+						</div>
+					</div>
+					<div class="flex justify-end space-x-3">
+						<button type="submit" id="addLinkBtnModal"
+								class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-700 dark:hover:bg-blue-600">
+							Add Link
+						</button>
+						<button type="submit" id="updateLinkBtnModal" style="display: none;"
+								class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-green-700 dark:hover:bg-green-600">
+							Update Link
+						</button>
+						<button type="button" id="cancelEditBtnModal" style="display: none;"
+								class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2.5 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:bg-gray-600 dark:hover:bg-gray-500">
+							Cancel
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+        <div id="duplicateHandlingModal" class="modalContainer fixed inset-0 bg-opacity-60 bg-gray-400 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg shadow-xl p-6 w-11/12 max-w-sm">
+                <h3 id="duplicateHandlingModalTitle" class="text-xl font-bold mb-4">Duplicate Bookmarks Found</h3>
+                <p id="duplicateHandlingModalMessage" class="mb-6"></p>
+                <div class="flex flex-col space-y-3">
+                    <button id="overwriteAllBtn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200 ease-in-out">
+                        Overwrite All
+                    </button>
+                    <button id="ignoreAllBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 ease-in-out">
+                        Ignore All
+                    </button>
+                    <button id="decideForEachBtn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 ease-in-out">
+                        Decide for Each Bookmark
+                    </button>
+                    <button id="cancelDuplicateHandlingBtn" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition duration-200 ease-in-out">
+                        Cancel Import
+                    </button>
+                </div>
+            </div>
+        </div>
+		
+        <div id="individualDuplicateModal" class="modalContainer fixed inset-0 bg-opacity-60 bg-gray-400 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg shadow-xl p-6 w-11/12 max-w-sm">
+                <h3 id="individualDuplicateModalTitle" class="text-xl font-bold mb-4">Duplicate Found: <span id="duplicateBookmarkTitle" class="font-semibold"></span></h3>
+                <p id="individualDuplicateModalMessage" class="mb-6">Do you want to overwrite this bookmark?</p>
+                <div class="flex justify-end space-x-3">
+                    <button id="individualDuplicateCancelBtn" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition duration-200 ease-in-out">
+                        Cancel
+                    </button>
+                    <button id="individualDuplicateOverwriteBtn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200 ease-in-out">
+                        Overwrite
+                    </button>
+                    <button id="individualDuplicateIgnoreBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 ease-in-out">
+                        Ignore
+                    </button>
+                </div>
+            </div>
+        </div>
+	
+	</div>
+
+	<div class="flex flex-col items-center fixed bottom-6 right-6">
+		<!-- Addition Icon -->
+		<button id="addNewLinkIcon" class="overlayButton p-3 mt-3 rounded-full shadow-lg" title="Add New Bookmark">
+			<i class="fas text-xl">+</i>
+		</button>
+
+		<!-- Question Mark Icon -->
+		<button id="infoIcon" class="overlayButton p-3 mt-3 rounded-full shadow-lg" title="Information">
+			<i class="fas text-xl">?</i>
+		</button>
+	</div>
+
+    <script src="ezSearch.js"></script>
+</body>
+</html>
