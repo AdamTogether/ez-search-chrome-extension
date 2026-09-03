@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "EZ Search New Tab Extension",
+  "name": "EZ Search (Bookmark Manager and Navigator)",
   "version": "1.0",
-  "description": "EZ Search is a lightweight Chrome extension for managing your bookmarks quickly and efficiently. Search, tag, and open your links without ever leaving your workflow.",
+  "description": "EZ Search is a lightweight Chrome extension for opening and managing your bookmarks quickly and efficiently with a simple keybind. ",
   "permissions": [
     "tabs",
     "windows"
