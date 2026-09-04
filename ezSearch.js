@@ -1088,7 +1088,7 @@ document.addEventListener('keydown', (e) => {
             duplicatesFoundForProcessing = []; // NEW: Clear duplicate queue if cancelled here
             currentDuplicateIndex = 0;
             showModal("Import Cancelled", "The import process has been cancelled.", () => {}, "OK", true); // Notify user
-			renderLinks();
+			renderLinks(searchInput.value);
         }
         if (!individualDuplicateModal.classList.contains('hidden')) {
             individualDuplicateModal.classList.add('hidden');
@@ -1097,13 +1097,13 @@ document.addEventListener('keydown', (e) => {
                 duplicatesFoundForProcessing = []; // NEW: Clear duplicate queue if cancelled here
                 currentDuplicateIndex = 0;
             }, "OK", true);
-			renderLinks();
+			renderLinks(searchInput.value);
         }
         // NEW: Close Add/Edit Link Modal
         if (!addEditLinkModal.classList.contains('hidden')) {
             resetForm(); // Reset form if closed with Escape
             addEditLinkModal.classList.add('hidden');
-			renderLinks();
+			renderLinks(searchInput.value);
         }
 		
 		const activeElement = document.activeElement;
@@ -1114,6 +1114,22 @@ document.addEventListener('keydown', (e) => {
 		}
 		// If a link is focused, return focus to the search bar
 		else if (document.activeElement && document.activeElement.closest('.link-card')) {
+			searchInput.focus();
+		}
+		// Otherwise, fall back to the search bar - but only if no modal is left
+		// open. Covers e.g. closing the Add/Edit Link modal above, whose focused
+		// input just got auto-blurred to <body> when it went display:none.
+		// Skipped when a modal is still open (e.g. showModal() above just
+		// focused its own confirm/cancel button) so we don't steal focus away
+		// from it.
+		else if (
+			customModal.classList.contains('hidden') &&
+			importTypeModal.classList.contains('hidden') &&
+			infoModal.classList.contains('hidden') &&
+			duplicateHandlingModal.classList.contains('hidden') &&
+			individualDuplicateModal.classList.contains('hidden') &&
+			addEditLinkModal.classList.contains('hidden')
+		) {
 			searchInput.focus();
 		}
 	// Check if Ctrl+Enter or Ctrl+Shift+Enter is pressed
