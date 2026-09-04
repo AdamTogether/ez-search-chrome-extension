@@ -4,7 +4,6 @@
   "version": "1.0",
   "description": "EZ Search is a lightweight Chrome extension for opening and managing your bookmarks quickly and efficiently with a simple keybind. ",
   "permissions": [
-    "windows"
   ],
   "background": {
     "service_worker": "background.js"
