@@ -6,9 +6,9 @@
     <title>EZ Search</title>
     <link rel="icon" href="favicon-cropped.ico" type="image/x-icon">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="tailwinds_3_4_16.js"></script>
-    <link rel="stylesheet" href="all.min.css">
+    <!-- <link rel="stylesheet" href="all.min.css"> -->
     <link rel="stylesheet" href="ezSearch.css">
     <script src="ezSearch_darkModeFix.js"></script>
 
@@ -16,7 +16,10 @@
 <body class="p-4 sm:p-6 md:p-8 flex flex-col items-center min-h-screen">
     <div class="max-w-4xl w-full bg-white shadow-lg rounded-xl p-6 sm:p-8 md:p-10 mb-8 main-container relative border">
 		<header class="flex justify-between items-center mb-6">
-			<h1 class="text-3xl sm:text-4xl font-extrabold text-center text-cyberpunk-pink mb-8" id="mainTitle">EZ Search</h1>
+			<div class="flex items-center">
+				<img src="favicon-cropped.png" alt="EZ Search logo" class="h-[1.875rem] w-[1.875rem] sm:h-[2.25rem] sm:w-[2.25rem] mr-2 sm:mr-3 flex-shrink-0">
+				<h1 class="text-3xl sm:text-4xl font-extrabold text-center text-cyberpunk-pink" id="mainTitle">EZ Search</h1>
+			</div>
 			<div class="flex items-center space-x-4">
 				<button id="exportLinksBtn" class="p-2 rounded-full transition-button" title="Export Links">
 					<i class="fas fa-download"></i>  <b>Export</b>
