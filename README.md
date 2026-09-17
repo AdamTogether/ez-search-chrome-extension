@@ -17,7 +17,7 @@ A lightweight Chrome extension for opening and managing your bookmarks quickly, 
 
 1. Install EZ Search from the [Chrome Web Store](https://chromewebstore.google.com/detail/ez-search-bookmark-manage/himmefjcbpgbibcnigdobfnnekpkbbkc).
 2. Confirm your keyboard shortcut:
-   - EZ Search comes with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> bound automatically as soon as you install it — just press it to launch the app.
+   - EZ Search comes with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> bound automatically as soon as you install it - just press it to launch the app.
    - If that shortcut doesn't do anything (usually because another extension already claimed it), go to **Extensions → Manage Extensions → Keyboard Shortcuts**, or open `chrome://extensions/shortcuts` directly, and set it manually.
 3. Bring in your existing bookmarks. See [Import](#import) below.
 
