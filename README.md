@@ -6,7 +6,7 @@ A lightweight Chrome extension for opening and managing your bookmarks quickly, 
 
 ---
 
-> [!IMPORTANT]
+> [!CAUTION]
 > **Export your data regularly.**
 >
 > All EZ Search bookmark data is stored in your browser's **Local Storage**. If you clear your browser's cache, cookies, or site data, your bookmarks will be **permanently deleted**. Use the **Export** button to keep a backup.
