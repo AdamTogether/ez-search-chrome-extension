@@ -4,7 +4,7 @@ A lightweight Chrome extension for opening and managing your bookmarks quickly, 
 
 **[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/ez-search-bookmark-manage/himmefjcbpgbibcnigdobfnnekpkbbkc)**
 
-![Screenshot of the EZ Search extension](https://raw.githubusercontent.com/AdamTogether/ez-search-chrome-extension/refs/heads/main/Example%201.png)
+[![Screenshot of the EZ Search extension](https://raw.githubusercontent.com/AdamTogether/ez-search-chrome-extension/refs/heads/main/Example%201.png)](https://chromewebstore.google.com/detail/ez-search-bookmark-manage/himmefjcbpgbibcnigdobfnnekpkbbkc)
 
 ---
 
