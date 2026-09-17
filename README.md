@@ -78,5 +78,6 @@ Links whose URL already exists in EZ Search are skipped, so duplicates aren't cr
 - Modular JavaScript
 - [Font Awesome](https://fontawesome.com/) icons
 
+## Install from the Chrome Web Store
 
-[![Install from the Chrome Web Store](https://chromewebstore.google.com/detail/ez-search-bookmark-manage/himmefjcbpgbibcnigdobfnnekpkbbkc)](https://raw.githubusercontent.com/AdamTogether/ez-search-chrome-extension/refs/heads/main/chrome-web-store-badge-for-colored-bg-1.png)
+[![Install from the Chrome Web Store](https://raw.githubusercontent.com/AdamTogether/ez-search-chrome-extension/refs/heads/main/chrome-web-store-badge-for-colored-bg.png)](https://chromewebstore.google.com/detail/ez-search-bookmark-manage/himmefjcbpgbibcnigdobfnnekpkbbkc)
