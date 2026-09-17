@@ -16,9 +16,9 @@ A lightweight Chrome extension for opening and managing your bookmarks quickly, 
 ## Getting Started
 
 1. Install EZ Search from the [Chrome Web Store](https://chromewebstore.google.com/detail/ez-search-bookmark-manage/himmefjcbpgbibcnigdobfnnekpkbbkc).
-2. Set a keyboard shortcut to open it:
-   - Go to **Extensions → Manage Extensions → Keyboard Shortcuts**, or open `chrome://extensions/shortcuts` directly.
-   - Assign a shortcut to EZ Search. <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> is recommended.
+2. Confirm your keyboard shortcut:
+   - EZ Search comes with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> bound automatically as soon as you install it — just press it to launch the app.
+   - If that shortcut doesn't do anything (usually because another extension already claimed it), go to **Extensions → Manage Extensions → Keyboard Shortcuts**, or open `chrome://extensions/shortcuts` directly, and set it manually.
 3. Bring in your existing bookmarks. See [Import](#import) below.
 
 A welcome guide appears the first time you open EZ Search. You can reopen it at any time with the **?** button in the bottom-right corner.
@@ -27,7 +27,7 @@ A welcome guide appears the first time you open EZ Search. You can reopen it at 
 
 | Shortcut | Action |
 |---|---|
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> | Launch EZ Search (recommended binding) |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> | Launch EZ Search (default binding) |
 | <kbd>Esc</kbd> | Close pop-ups, clear the search bar, or move focus from a link back to the search bar |
 | <kbd>↑</kbd> / <kbd>↓</kbd> | Move between visible links |
 | <kbd>Enter</kbd> | Open the focused link in the current tab |
