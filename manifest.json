@@ -23,6 +23,18 @@
       "matches": ["<all_urls>"]
     }
   ],
+  "action": {
+    "default_icon": {
+      "16": "favicon-cropped.png",
+      "48": "favicon-cropped.png",
+      "128": "favicon-cropped.png"
+    },
+    "theme_icons": [
+      { "light": "favicon-cropped.png", "dark": "favicon-cropped.png", "size": 16 },
+      { "light": "favicon-cropped.png", "dark": "favicon-cropped.png", "size": 48 },
+      { "light": "favicon-cropped.png", "dark": "favicon-cropped.png", "size": 128 }
+    ]
+  },
   "icons": {
     "16": "favicon-cropped.png",
     "48": "favicon-cropped.png",
