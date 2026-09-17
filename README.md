@@ -80,4 +80,4 @@ Links whose URL already exists in EZ Search are skipped, so duplicates aren't cr
 
 ## Install from the Chrome Web Store
 
-[![Install from the Chrome Web Store](https://raw.githubusercontent.com/AdamTogether/ez-search-chrome-extension/refs/heads/main/chrome-web-store-badge-for-colored-bg.png)](https://chromewebstore.google.com/detail/ez-search-bookmark-manage/himmefjcbpgbibcnigdobfnnekpkbbkc)
+[![Install from the Chrome Web Store](https://raw.githubusercontent.com/AdamTogether/ez-search-chrome-extension/refs/heads/main/chrome-web-store-badge-for-colored-bg-medium.png)](https://chromewebstore.google.com/detail/ez-search-bookmark-manage/himmefjcbpgbibcnigdobfnnekpkbbkc)
